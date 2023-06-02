@@ -6,7 +6,7 @@ class Achievement extends Model {}
 module.exports = Achievement.init(
     {
         achievementName: {
-            type:DataTypes.STRING,
+            type: DataTypes.STRING,
         },
         condition: {
             type: DataTypes.STRING,
