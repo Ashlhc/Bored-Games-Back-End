@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
+const User = require('./User');
 
 class FriendRequest extends Model {}
 
@@ -12,7 +13,7 @@ module.exports = FriendRequest.init(
                 key: 'id'
             }
         },
-        reciepient_id: {
+        recipient_id: {
             type: DataTypes.STRING,
             references: {
                 model: User,
