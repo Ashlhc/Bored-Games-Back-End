@@ -5,11 +5,12 @@ const sequelize = require('../../config/connection');
 const {Op} = require('sequelize');
 const bcrypt = require(bcrypt);
 
+// * GET
 // Get All Users
-router.get('/', async (req,res) => {
+userRouter.get('/', async (req,res) => {
   try {
-    const users = await User.findAll({})
-    res.status(200).json(users)
+    const allUsers = await User.findAll({})
+    res.status(200).json(allUsers)
   } catch(error) {
     console.log(error)
     res.status(500).json({msg:'Error Occured', error})
@@ -17,7 +18,7 @@ router.get('/', async (req,res) => {
 });
 
 // Find User by Username
-router.get('/search/:username', async (req,res) => {
+userRouter.get('/search/:username', async (req,res) => {
   try {
     const username = await User.findOne({
       where: {username: req.params.username},
@@ -38,9 +39,9 @@ router.get('/search/:username', async (req,res) => {
   }
 });
 
-// *POST
+// * POST
 // POST Username, first_name, last_name, email
-router.post('/', async (req,res) => {
+userRouter.post('/', async (req,res) => {
   try {
     const {username, password, firstName, lastName, email} = req.body;
     const user = await User.create({
@@ -59,7 +60,7 @@ router.post('/', async (req,res) => {
 
 // POST Add Friend
 // ? Might need fixing
-router.post('/:userId/addfriend/:friendId', async (req,res) => {
+userRouter.post('/:userId/addfriend/:friendId', async (req,res) => {
   try {
 		const user = User.findByPK(req.params.userId)
     const friend = User.findByPk(res.params.friendId)
@@ -78,7 +79,7 @@ router.post('/:userId/addfriend/:friendId', async (req,res) => {
 })
 
 // POST login user
-router.post('/login', async (req,res) => {
+userRouter.post('/login', async (req,res) => {
   console.log(req.body)
   try {
     const foundUser = await User.findOne({
@@ -103,9 +104,9 @@ router.post('/login', async (req,res) => {
   }
 });
 
-// *PUT
-//  PUT update User Info by its 'id' value
-router.put('/:id', async (req,res) => {
+// * PUT
+//  PUT update User Info by its id
+userRouter.put('/:id', async (req,res) => {
   const {username, firstName, lastName, email} = req.body;
   try {
     const user = await User.findByPK(req.params.id)
@@ -140,13 +141,13 @@ router.put('/:id', async (req,res) => {
 });
 
 // User logout
-router.delete('/logout', (req,res) => {
+userRouter.delete('/logout', (req,res) => {
 	try {
     req.session.destroy()
     res.status(200).json({msg:'Successfully Logged Out'})
   } catch(error) {
     console.log(error)
-    res.status(500).json(error)
+    res.status(500).json({msg:'Error Occured'. error})
   }
 });
 
