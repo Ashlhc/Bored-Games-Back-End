@@ -12,7 +12,8 @@ module.exports = Game.init(
             type: DataTypes.INTEGER,
         },
         guessedLetters: {
-            type: DataTypes.ARRAY(DataTypes.STRING),
+            // comma separated list
+            type: DataTypes.STRING,
         },
     },
     { sequelize },
