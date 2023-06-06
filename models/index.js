@@ -1,24 +1,16 @@
 const User = require('./User');
-const Achievement = require('./Achievement');
-const FriendRequest = require('./FriendRequest');
+const Game = require('./Game');
 
-User.hasMany(Achievement);
+User.belongsToMany(User, { through: 'UserFollowers', as: 'followers', foreignKey: 'followingId' });
+User.belongsToMany(User, { through: 'UserFollowers', as: 'following', foreignKey: 'followerId' });
 
-User.belongsToMany(User, {
-    through: FriendRequest,
-    as: 'requester',
-    foreignKey: 'requester_id'
-});
-User.belongsToMany(User, {
-    through: FriendRequest, 
-    as: 'recipient',
-    foreignKey: 'recipient_id'
-});
+User.hasMany(Game, { foreignKey: 'guesserId', as: 'guessedGames' });
+User.hasMany(Game, { foreignKey: 'questionerId', as: 'questionedGames' });
 
-Achievement.hasMany(User);
+Game.belongsTo(User, { foreignKey: 'guesserId', as: 'guesser' });
+Game.belongsTo(User, { foreignKey: 'questionerId', as: 'questioner' });
 
 module.exports = {
-    User, 
-    Achievement,
-    FriendRequest,
+    User,
+    Game,
 };
