@@ -54,7 +54,7 @@ gameRouter.post('/guess_letter/:gameId', authenticateToken, async (req, res) => 
         } else {
             currentLetters.push(letter);
             game.guessedLetters = currentLetters.join(',');
-            game.save();
+            await game.save();
 
             res.status(200).json({ game });
         }
