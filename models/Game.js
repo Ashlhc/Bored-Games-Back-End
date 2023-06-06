@@ -5,17 +5,14 @@ class Game extends Model {}
 
 module.exports = Game.init(
     {
-        name: {
-            type: DataTypes.STRING,  
-        },
-        inProgress: {
-            type: DataTypes.BOOLEAN,
-        },
-        scores: {
+        word: {
             type: DataTypes.STRING,
         },
-        userTurn: {
-
+        maxGuessCount: {
+            type: DataTypes.INTEGER,
+        },
+        guessedLetters: {
+            type: DataTypes.ARRAY(DataTypes.STRING),
         },
     },
     { sequelize },
