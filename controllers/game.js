@@ -30,7 +30,7 @@ gameRouter.post('/', authenticateToken, async (req, res) => {
             questionerId: currentUser.id,
             word,
             maxGuessCount,
-            guessedLetters: [],
+            guessedLetters: '',
         });
 
         res.status(200).json({ game });
@@ -47,10 +47,17 @@ gameRouter.post('/guess_letter/:gameId', authenticateToken, async (req, res) => 
     const game = await Game.findByPk(gameId);
 
     if (game.questionerId === currentUser.id) {
-        game.guessedLetters.push(letter);
-        game.save();
-    
-        res.status(200).json({ game });
+        const currentLetters = game.guessedLetters.split(',');
+
+        if (currentLetters.includes(letter)) {
+            res.status(500).json({ error: { message: 'Letter already guessed' }});
+        } else {
+            currentLetters.push(letter);
+            game.guessedLetters = currentLetters.join(',');
+            game.save();
+
+            res.status(200).json({ game });
+        }
     } else {
         res.status(401);
     }
