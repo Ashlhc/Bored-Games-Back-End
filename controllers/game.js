@@ -6,14 +6,14 @@ const { authenticateToken } = require('../middleware');
 const gameRouter = express.Router();
 
 gameRouter.get('/', authenticateToken, async (req, res) => {
-    const currentUser = User.findByPk(req.user.id);
+    const currentUser = await User.findByPk(req.user.id);
 
-    const games = await Promise.all(
+    const games = await Promise.all([
         currentUser.getGuessedGames(), 
         currentUser.getQuestionedGames(),
-    );
+    ]);
 
-    return res.json(games);
+    return res.json(games.flat());
 });
 
 gameRouter.post('/', authenticateToken, async (req, res) => {
@@ -43,17 +43,18 @@ gameRouter.post('/guess_letter/:gameId', authenticateToken, async (req, res) => 
     const { gameId } = req.params;
     const { letter } = req.body;
 
-    const currentUser = User.findByPk(req.user.id);
+    const currentUser = await User.findByPk(req.user.id);
     const game = await Game.findByPk(gameId);
 
     if (game.questionerId === currentUser.id) {
         const currentLetters = game.guessedLetters.split(',');
+        if (game.guessedLetters === '') currentLetters.pop();
 
         if (currentLetters.includes(letter)) {
             res.status(500).json({ error: { message: 'Letter already guessed' }});
         } else {
             currentLetters.push(letter);
-            game.guessedLetters = currentLetters.join(',');
+            game.guessedLetters = currentLetters.join();
             await game.save();
 
             res.status(200).json({ game });

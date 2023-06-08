@@ -131,7 +131,18 @@ Returns: [
 GET /api/games (protected)
 gets all games for current user
 
-Returns: TODO: fill in
+Returns: [
+		{
+		"id": 3,
+		"word": "supercalifragalisticexpialidotios",
+		"maxGuessCount": 5,
+		"guessedLetters": "",
+		"createdAt": "2023-06-08T17:41:51.000Z",
+		"updatedAt": "2023-06-08T17:41:51.000Z",
+		"guesserId": 1,
+		"questionerId": 11
+	}
+]
 
 ---------------------------------------------
 
@@ -144,7 +155,18 @@ Payload: {
     "word": "hello"
 }
 
-Returns: TODO: fill in
+Returns: {
+	"game": {
+		"id": 4,
+		"guesserId": 1,
+		"questionerId": 11,
+		"word": "supercalifragilisticexpialidocious",
+		"maxGuessCount": 5,
+		"guessedLetters": "",
+		"updatedAt": "2023-06-08T17:55:23.569Z",
+		"createdAt": "2023-06-08T17:55:23.569Z"
+	}
+}
 
 ---------------------------------------------
 
@@ -155,5 +177,16 @@ Payload: {
     "letter": "a"
 }
 
-Returns: TODO: fill in
+Returns: {
+	"game": {
+		"id": 1,
+		"word": "Wassup",
+		"maxGuessCount": 5,
+		"guessedLetters": "t,d,h",
+		"createdAt": "2023-06-08T17:41:06.000Z",
+		"updatedAt": "2023-06-08T17:56:07.995Z",
+		"guesserId": 1,
+		"questionerId": 11
+	}
+}
 ```

@@ -29,9 +29,9 @@ userRouter.post('/follow/:id', authenticateToken, async (req, res) => {
   const currentUser = await User.findByPk(req.user.id);
   const userToBeFollowed = await User.findByPk(toBeFollwedId);
 
-  currentUser.addFollowing(userToBeFollowed);
+  await currentUser.addFollowing(userToBeFollowed);
 
-  res.status(200);
+  res.status(200).json({ user: userToBeFollowed });
 });
 
 userRouter.get('/following', authenticateToken, async (req, res) => {
