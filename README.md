@@ -117,9 +117,14 @@ Returns: [
 		"firstName": "Taylor",
 		"lastName": "Watters",
 		"createdAt": "2023-06-01T19:16:01.000Z",
-		"updatedAt": "2023-06-01T19:16:01.000Z"
-	},
-    ...
+		"updatedAt": "2023-06-01T19:16:01.000Z",
+		"UserFollowers": {
+			"createdAt": "2023-06-08T17:57:19.000Z",
+			"updatedAt": "2023-06-08T17:57:19.000Z",
+			"followingId": 1,
+			"followerId": 11
+		}
+	}
 ]
 
 ---------------------------------------------
