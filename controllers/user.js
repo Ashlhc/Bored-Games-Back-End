@@ -50,8 +50,8 @@ userRouter.get('/followers', authenticateToken, async (req, res) => {
 
 userRouter.post('/signup', async (req, res) => {
     try {
-        const { username, password, firstName, lastName } = req.body;
-        const user = await User.create({ username, password, firstName, lastName });
+        const { username, password, firstName, lastName, avatarUrl } = req.body;
+        const user = await User.create({ username, password, firstName, lastName, avatarUrl });
 
         res.status(200).json({ user });
     } catch (error) {
