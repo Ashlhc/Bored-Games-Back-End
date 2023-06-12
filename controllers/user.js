@@ -63,6 +63,21 @@ userRouter.post('/follow/:id', authenticateToken, async (req, res) => {
   }
 });
 
+userRouter.delete('/unfollow/:id', authenticateToken, async (req, res) => {
+  const { id: toBeUnfollowedId } = req.params;
+
+  try {
+    const currentUser = await User.findByPk(req.user.id);
+    const userToBeUnfollowed = await User.findByPk(toBeUnfollowedId);
+
+    await currentUser.removeFollowing(userToBeUnfollowed);
+
+    res.status(200).json({ user: userToBeUnfollowed });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 userRouter.get('/following', authenticateToken, async (req, res) => {
   try {
     const currentUser = await User.findByPk(req.user.id);
