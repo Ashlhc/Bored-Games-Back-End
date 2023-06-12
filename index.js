@@ -1,8 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/connection');
-
 const app = express();
+const http = require('http');
+const { Server } = require('socket.io');
+const server = http.createServer(app);
+
+
+
+
 
 const { apiRouter } = require('./controllers');
 
@@ -12,9 +18,8 @@ app.use(express.json());
 app.use(cors());
 app.use(apiRouter);
 
-
 sequelize.sync().then(() => {
-    app.listen(PORT, () => {
-        console.log(`App listening on port ${PORT}`);
-    });
+    server.listen(PORT, () => {
+        console.log(`listening on port ${PORT}`);
+    })
 });
