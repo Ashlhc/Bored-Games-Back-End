@@ -8,14 +8,14 @@ const { Server } = require('socket.io');
 
 const io = new Server(server, {
     cors: {
-        cors: 'http://localhost:3000',
-        methods: ['GET', 'POST'],
+        origin: '*',
+        methods: ['GET', 'POST', 'DELETE'],
     },
 });
 
 const { apiRouter } = require('./controllers');
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 io.on('connection', (socket) => {
     console.log(`a user connected: ${socket.id}`);
