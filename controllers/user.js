@@ -78,7 +78,7 @@ userRouter.post('/login', async (req, res) => {
       { expiresIn: '1h' },
     );
   
-    res.status(200).json({ token });
+    res.status(200).json({ token, user });
   } else {
     res.status(401);
   }
