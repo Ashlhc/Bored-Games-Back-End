@@ -19,7 +19,9 @@ userRouter.get('/', async (_, res) => {
 
 userRouter.get('/:username', async (_, res) => {
     try {
-      const user = await User.findByPk(req.params.username);
+      const user = await User.findOne({
+        where: { username },
+      });
       return res.status(200).json(user);
     } catch (error) {
       res.status(500).json({ error });
