@@ -6,12 +6,17 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
 
+const origin = 'http://localhost:3000' || 'https://wellington-j-gallowsby-hangman.netlify.app/'
+
 const io = new Server(server, {
     cors: {
-        origin: '*',
+        origin: origin,
         methods: ['GET', 'POST', 'DELETE'],
     },
 });
+
+
+
 
 const { apiRouter } = require('./controllers');
 
