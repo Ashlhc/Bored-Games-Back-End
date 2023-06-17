@@ -100,20 +100,22 @@ userRouter.get('/followers', authenticateToken, async (req, res) => {
   }
 });
 
-userRouter.post('/signup', async (_, res) => {
-    try {
-        const user = await User.create({ username, password, firstName, lastName, avatarUrl });
+userRouter.post('/signup', async (req, res) => {
+  const { username, password, firstName, lastName, avatarUrl } = req.body;
 
-        const token = jwt.sign(
-          { username: user.username, id: user.id },
-          process.env.TOKEN_SECRET,
-          { expiresIn: '1h' },
-        );
+  try {
+      const user = await User.create({ username, password, firstName, lastName, avatarUrl });
 
-        res.status(200).json({ user, token });
-    } catch (error) {
-        res.status(500).json({ error });
-    }
+      const token = jwt.sign(
+        { username: user.username, id: user.id },
+        process.env.TOKEN_SECRET,
+        { expiresIn: '1h' },
+      );
+
+      res.status(200).json({ user, token });
+  } catch (error) {
+      res.status(500).json({ error });
+  }
 });
 
 userRouter.post('/login', async (req, res) => {
