@@ -23,7 +23,7 @@ const io = new Server(server, {
 });
 
 function isValidOrigin(origin) {
-  return origin && origin.includes('wellington-j-gallowsby-hangman.netlify.app');
+  return origin && (origin.includes('wellington-j-gallowsby-hangman.netlify.app') || origin.includes('localhost'));
 }
 
 io.on('connection', (socket) => {
