@@ -17,7 +17,7 @@ userRouter.get('/', async (_, res) => {
     }
 });
 
-userRouter.get('/:username', async (req, res) => {
+userRouter.get('_/:username', async (req, res) => {
     try {
       const user = await User.findOne({
         where: { username: req.params.username },
@@ -120,7 +120,7 @@ userRouter.post('/signup', async (req, res) => {
 
 userRouter.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  
+
   try {
     const user = await User.findOne({ where: { username } });
     const isValid = bcrypt.compareSync(password, user.password);
