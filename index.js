@@ -2,6 +2,7 @@ const express = require('express');
 const sequelize = require('./config/connection');
 const app = express();
 const http = require('http');
+const cors = require('cors');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
 
@@ -38,17 +39,7 @@ io.on('connection', (socket) => {
 });
 
 app.use(express.json());
-
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (isValidOrigin(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-  res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-  next();
-});
+app.use(cors());
 
 app.use(apiRouter);
 
