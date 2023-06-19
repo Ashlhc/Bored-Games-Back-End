@@ -17,7 +17,7 @@ userRouter.get('/', async (_, res) => {
     }
 });
 
-userRouter.get('_/:username', async (req, res) => {
+userRouter.get('/_/:username', async (req, res) => {
     try {
       const user = await User.findOne({
         where: { username: req.params.username },
