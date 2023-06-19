@@ -18,7 +18,7 @@ const io = new Server(server, {
             callback(new Error('Not allowed by CORS'));
           }
         },
-        methods: ['GET', 'POST', 'DELETE'],
+        methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
     },
 });
 
